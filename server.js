@@ -35,29 +35,34 @@ app.get('/help', function (req, res) {
 })
 
 app.get('/customer', function (req, res) {
-    let fname = req.query.fname
-    let lname = req.query.lname
-    let name = fname + " " + lname
-    let output = 'none'
+    try {
+        let fname = req.query.fname
+        let lname = req.query.lname
+        let name = fname + " " + lname
+        let output = 'none'
 
-    //read the json file for customer
-    readFile('customers.json').then(function (data) {
-        //loop through all the customers
-        for (const customer of data) {
-            //check if the customer name in the record  matches the name in the query
-            if (customer.name == name) {
-                //if they match, set output to be the customer data
-                output = customer
+        //read the json file for customer
+        readFile('customers.json').then(function (data) {
+            //loop through all the customers
+            for (const customer of data) {
+                //check if the customer name in the record  matches the name in the query
+                if (customer.name == name) {
+                    //if they match, set output to be the customer data
+                    output = customer
+                }
             }
-        }
-        if (output != 'none') {
-            //send the output to the client if a customer was  found
-            res.send(JSON.stringify(output))
-        } else {
-            //send a response to the client if no customer data found
-            res.send('no customer data for: ' + name)
-        }
-    })
+            if (output != 'none') {
+                //send the output to the client if a customer was  found
+                res.send(JSON.stringify(output))
+            } else {
+                //send a response to the client if no customer data found
+                res.send('no customer data for: ' + name)
+            }
+        })
+    }
+    catch (err) {
+        res.send(err)
+    }
 })
 
 // GET Date ENDPOINT
