@@ -31,7 +31,10 @@ function readFile(filePath) {
 
 // GET STATUS ENDPOINT
 app.get('/help', function (req, res) {
-    res.send('Try localhost:8080/customer?fname=Elaine&lname=Rushmore')
+    res.send(JSON.stringify({
+        status: "error",
+        message: 'Try /customer?fname=Elaine&lname=Rushmore'
+    }))
 })
 
 app.get('/customer', function (req, res) {
@@ -56,7 +59,10 @@ app.get('/customer', function (req, res) {
                 res.send(JSON.stringify(output))
             } else {
                 //send a response to the client if no customer data found
-                res.send('no customer data for: ' + name)
+                res.send(JSON.stringify({
+                    status: "error",
+                    message: 'no customer data for: ' + name
+                }))
             }
         })
     }
