@@ -3,7 +3,7 @@
 
 ```mermaid
   graph TD;
-      A-->B;
+      A{some text}-->B[blahhh];
       A-->C;
       B-->D;
       C-->D;
